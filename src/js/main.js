@@ -24,11 +24,53 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Manejo mejorado del video
+    // Manejo del video
     const video = document.getElementById('hero-video');
+    const playPauseBtn = document.getElementById('playPauseBtn');
     const muteButton = document.getElementById('muteButton');
-    const videoSection = document.querySelector('.video-section');
     let isVideoPlaying = false;
+
+    // Función para actualizar el ícono de play/pause
+    function updatePlayPauseIcon() {
+        playPauseBtn.innerHTML = isVideoPlaying ? 
+            '<i class="fas fa-pause"></i>' : 
+            '<i class="fas fa-play"></i>';
+    }
+
+    // Control de reproducción
+    playPauseBtn.addEventListener('click', function() {
+        if (isVideoPlaying) {
+            video.pause();
+            isVideoPlaying = false;
+        } else {
+            video.play().then(() => {
+                isVideoPlaying = true;
+            }).catch(error => {
+                console.log("Error reproduciendo el video:", error);
+            });
+        }
+        updatePlayPauseIcon();
+    });
+
+    // Control de sonido
+    muteButton.addEventListener('click', function() {
+        if (video.muted) {
+            video.muted = false;
+            muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            video.muted = true;
+            muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+    });
+
+    // Actualizar estado cuando el video termine
+    video.addEventListener('ended', function() {
+        isVideoPlaying = false;
+        updatePlayPauseIcon();
+    });
+
+    // Manejo mejorado del video
+    const videoSection = document.querySelector('.video-section');
 
     // Función para verificar si el elemento está en el centro del viewport
     function isElementCentered(el) {
@@ -66,17 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Control de sonido manual
-    muteButton.addEventListener('click', function() {
-        if (video.muted) {
-            video.muted = false;
-            muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-        } else {
-            video.muted = true;
-            muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        }
-    });
-
     // Escuchar el scroll con throttle para mejor rendimiento
     let scrollTimeout;
     window.addEventListener('scroll', function() {
@@ -100,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function() {
             loader.style.display = 'none';
         }, 1000);
-    }, 15000); // Aumentado a 15 segundos
+    }, 12000); // Aumentado a 15 segundos
 
     // Configuración del loader
     const loader = document.getElementById('loader');
