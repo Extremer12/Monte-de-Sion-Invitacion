@@ -220,7 +220,7 @@ const handleScrollAnimation = () => {
 window.addEventListener("scroll", handleScrollAnimation);
 window.addEventListener("load", handleScrollAnimation);
 
-// Inicialización del mapa
+// Inicialización del mapa de manera segura
 document.addEventListener('DOMContentLoaded', function() {
     const map = L.map('mapa').setView([-31.5329083, -68.50687854937222], 16);
     
