@@ -27,31 +27,46 @@ document.addEventListener("DOMContentLoaded", function () {
     // Manejo mejorado del video
     const video = document.getElementById('hero-video');
     const muteButton = document.getElementById('muteButton');
-    
-    // Función para intentar reproducir el video
-    function playVideo() {
-        video.play().catch(function(error) {
-            console.log("Error inicial reproduciendo el video:", error);
-            // Reintenta reproducir después de una interacción del usuario
-            document.addEventListener('click', function() {
-                video.play().catch(console.log);
-            }, { once: true });
-        });
+    const videoSection = document.querySelector('.video-section');
+    let isVideoPlaying = false;
+
+    // Función para verificar si el elemento está en el centro del viewport
+    function isElementCentered(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const elementCenter = rect.top + (rect.height / 2);
+        const viewportCenter = windowHeight / 2;
+        const tolerance = 100;
+        return Math.abs(elementCenter - viewportCenter) < tolerance;
     }
 
-    // Maneja eventos del video
-    video.addEventListener('loadeddata', function() {
-        playVideo();
-    });
+    // Función para manejar el video
+    function handleVideo() {
+        if (isElementCentered(videoSection)) {
+            if (!isVideoPlaying) {
+                // Asegurarse de que el video sea visible
+                video.style.display = 'block';
+                // Intentar reproducir el video
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isVideoPlaying = true;
+                        video.muted = false;
+                        muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }).catch(error => {
+                        console.log("Error reproduciendo el video:", error);
+                    });
+                }
+            }
+        } else {
+            if (isVideoPlaying) {
+                video.pause();
+                isVideoPlaying = false;
+            }
+        }
+    }
 
-    video.addEventListener('error', function(e) {
-        console.log("Error en el video:", e);
-    });
-
-    // Intenta reproducir inmediatamente
-    playVideo();
-    
-    // Control de sonido
+    // Control de sonido manual
     muteButton.addEventListener('click', function() {
         if (video.muted) {
             video.muted = false;
@@ -60,6 +75,52 @@ document.addEventListener("DOMContentLoaded", function () {
             video.muted = true;
             muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
+    });
+
+    // Escuchar el scroll con throttle para mejor rendimiento
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(function() {
+                handleVideo();
+                scrollTimeout = null;
+            }, 50);
+        }
+    });
+
+    // Verificar la posición inicial después de que el video esté listo
+    video.addEventListener('loadeddata', function() {
+        handleVideo();
+    });
+
+    // Aumentar el tiempo del loader
+    setTimeout(function() {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(function() {
+            loader.style.display = 'none';
+        }, 1000);
+    }, 15000); // Aumentado a 15 segundos
+
+    // Configuración del loader
+    const loader = document.getElementById('loader');
+    
+    // Asegurarse de que el loader esté visible al inicio
+    loader.style.opacity = '1';
+    loader.style.display = 'flex';
+
+    // Timer para ocultar el loader después de 15 segundos
+    setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+            loader.style.display = 'none';
+        }, 1000);
+    }, 15000);
+
+    // Animación de letras del loader
+    const letters = document.querySelectorAll('.loader-title .letter');
+    letters.forEach((letter, index) => {
+        letter.style.animationDelay = `${index * 0.1}s`;
     });
   });
   
@@ -100,13 +161,15 @@ window.addEventListener("scroll", () => {
   });
   
 
-  window.addEventListener("load", () => {
+/*
+window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
     loader.style.opacity = "0";
     setTimeout(() => {
-      loader.style.display = "none";
+        loader.style.display = "none";
     }, 600);
-  });
+});
+*/
   
   const scrollElements = document.querySelectorAll(".scroll-fade");
 
