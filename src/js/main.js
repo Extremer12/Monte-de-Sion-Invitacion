@@ -126,23 +126,16 @@ const handleScrollAnimation = () => {
 window.addEventListener("scroll", handleScrollAnimation);
 window.addEventListener("load", handleScrollAnimation);
 
-function initMap() {
-    const ubicacion = { lat: -31.533021, lng: -68.506867}; // Actualiza con tus coordenadas correctas
+// Inicialización del mapa
+document.addEventListener('DOMContentLoaded', function() {
+    const map = L.map('mapa').setView([-31.5329083, -68.50687854937222], 16);
     
-    const mapa = new google.maps.Map(document.getElementById("mapa"), {
-        zoom: 18,
-        center: ubicacion,
-        styles: [
-            {
-                // Opcional: Puedes agregar estilos personalizados para el mapa
-            }
-        ]
-    });
-    
-    const marcador = new google.maps.Marker({
-        position: ubicacion,
-        map: mapa,
-        title: "Monte de Sion",
-        animation: google.maps.Animation.DROP // Agrega una animación al marcador
-    });
-}
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const marker = L.marker([-31.5329083, -68.50687854937222])
+        .addTo(map)
+        .bindPopup('Monte de Sión<br>Miguel Ridao F. Norte 40')
+        .openPopup();
+});

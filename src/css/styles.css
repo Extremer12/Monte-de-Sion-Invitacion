@@ -418,4 +418,11 @@
     border: 2px solid var(--color-gold);
     border-radius: 8px;
     overflow: hidden;
+    z-index: 1;
+  }
+
+  .leaflet-popup-content {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    font-weight: bold;
   }
