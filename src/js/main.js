@@ -24,13 +24,34 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Control de sonido del video
+    // Manejo mejorado del video
     const video = document.getElementById('hero-video');
     const muteButton = document.getElementById('muteButton');
     
-    // Iniciar con sonido
-    video.muted = false;
+    // Función para intentar reproducir el video
+    function playVideo() {
+        video.play().catch(function(error) {
+            console.log("Error inicial reproduciendo el video:", error);
+            // Reintenta reproducir después de una interacción del usuario
+            document.addEventListener('click', function() {
+                video.play().catch(console.log);
+            }, { once: true });
+        });
+    }
+
+    // Maneja eventos del video
+    video.addEventListener('loadeddata', function() {
+        playVideo();
+    });
+
+    video.addEventListener('error', function(e) {
+        console.log("Error en el video:", e);
+    });
+
+    // Intenta reproducir inmediatamente
+    playVideo();
     
+    // Control de sonido
     muteButton.addEventListener('click', function() {
         if (video.muted) {
             video.muted = false;
