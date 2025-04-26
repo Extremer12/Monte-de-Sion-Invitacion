@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invitación a la inauguración del Nuevo Templo Monte de Sión.">
+    <meta name="keywords" content="Monte de Sión, Inauguración, Templo, Iglesia, San Juan">
+    <meta name="author" content="Cristian Bordon">
+    <meta name="theme-color" content="#f8f9fa">
+    <link rel="icon" href="src/images/logo-montedesion.jpg" type="image/png">
+    <title>Inauguración Monte de Sión</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+    </div>
+    
+    
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <div class="particles-golden"></div>
+        <div class="welcome-content">
+            <h1 class="main-title" data-aos="fade-down">Monte de Sión</h1>
+            <div class="divine-separator" data-aos="fade-up" data-aos-delay="200">
+                <span class="line"></span>
+                <i class="fas fa-dove"></i>
+                <span class="line"></span>
+            </div>
+            <p class="welcome-subtitle" data-aos="fade-up" data-aos-delay="400">
+                Inauguración del Nuevo Templo
+            </p>
+        </div>
+    </section>
+
+    <!-- Video Section with animation -->
+    <section class="video-section">
+        <div class="video-wrapper">
+            <video id="hero-video" autoplay loop playsinline muted>
+                <source src="src/images/welcome.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+            <button id="muteButton" class="mute-btn" title="Silenciar/Activar sonido">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Historia Section -->
+    <section class="history">
+        <div class="particles-golden"></div>
+        <div class="flying-doves"></div>
+        <div class="container">
+            <div class="history-content" data-aos="fade-up">
+                <h2 class="section-title">Nuestro Inicio</h2>
+                <div class="divine-separator">
+                    <span class="line"></span>
+                    <i class="fas fa-cross"></i>
+                    <span class="line"></span>
+                </div>
+                <p class="section-subtitle">Un camino de fe y crecimiento</p>
+                
+                <div class="history-card-wrapper" data-aos="zoom-in">
+                    <div class="history-card">
+                        <div class="card-frame">
+                            <div class="frame-corner top-left"></div>
+                            <div class="frame-corner top-right"></div>
+                            <div class="frame-corner bottom-left"></div>
+                            <div class="frame-corner bottom-right"></div>
+                            <img src="src/images/2023.jpg" alt="Nuestra Historia" class="history-image">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                <i class="fas fa-mountain overlay-icon"></i>
+                                <p class="overlay-text">Aquí comienza nuestra historia...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformación Section -->
+    <section class="transformation">
+        <div class="particles-golden"></div>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Transformación del Templo</h2>
+                <div class="divine-separator">
+                    <span class="line"></span>
+                    <i class="fas fa-mountain"></i>
+                    <span class="line"></span>
+                </div>
+            </div>
+            
+            <div class="transformation-container">
+                <div class="before-after-toggle">
+                    <button class="toggle-btn active" data-view="before">Antes</button>
+                    <button class="toggle-btn" data-view="after">Después</button>
+                </div>
+                <div class="image-container">
+                    <img src="src/images/Antes.jpg" alt="Antes" class="transform-img before active">
+                    <img src="src/images/Despues.png" alt="Después" class="transform-img after">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="event-info" id="gran-dia">
+        <div class="event-overlay">
+            <h2>✨¡El Gran Día Está Cerca!✨</h2>
+            <p class="event-subtitle">Estas invitado a ser parte, Te esperamos para la Inauguración del Templo.</p>
+            <div class="event-date-box">
+            <i class="fas fa-calendar-day"></i>
+            <span class="event-date"> Sábado 3 de Mayo – 18:00 hs</span>
+        </div>
+            <p class="event-location"><i class="fas fa-map-marker-alt"></i> Miguel Ridao F. Norte 40, Santa Lucia, San Juan</p>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location">
+        <div class="particles-golden"></div>
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Nueva ubicación</h2>
+                <div class="divine-separator">
+                    <span class="line"></span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="line"></span>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <div id="mapa"></div>
+                </div>
+                <a href="https://www.google.com/maps/dir//Monte+de+Sion/@-31.5329083,-68.50687854937222,21z" class="directions-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-directions"></i>
+                    Cómo llegar
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pastores Section -->
+    <section class="pastors">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Invitados Especiales</h2>
+                <div class="divine-separator">
+                    <span class="line"></span>
+                    <i class="fas fa-crown"></i>
+                    <span class="line"></span>
+                </div>
+            </div>
+
+            <div class="pastors-list">
+                <div class="pastor-item" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Tito Fernández</h3>
+                    <span class="role">Pastor</span>
+                </div>
+
+                <div class="pastor-item" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Claudio Fernández</h3>
+                    <span class="role">Pastor</span>
+                </div>
+
+                <div class="pastor-item" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Vanesa Pacheco</h3>
+                    <span class="role">Apóstol</span>
+                </div>
+
+                <div class="pastor-item" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Vanina Pacheco</h3>
+                    <span class="role">Pastora</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <h3>Iglesia Monte de Sión</h3>
+                <p>"Este es el día que hizo Jehová; nos gozaremos y alegraremos en él." <br> <strong>Salmos 118:24</strong></p>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/Iglesiiamontedesion/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/monte_de_sioon/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@GeneracionPrivilegiada" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Monte de Sión. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="src/js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARtpLZduGskJyKjstfe7uJ90mXOGfYRik&callback=initMap" async defer></script>
+
+</body>
+</html>

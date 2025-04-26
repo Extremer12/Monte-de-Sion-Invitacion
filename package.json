@@ -1,0 +1,24 @@
+{
+  "name": "monte-de-sion-invitacion",
+  "version": "1.0.0",
+  "description": "Página web de invitación para la inauguración del Nuevo Templo Monte de Sión",
+  "main": "src/js/main.js",
+  "scripts": {
+    "start": "live-server .",
+    "build": "echo 'Build step can be added here.'"
+  },
+  "keywords": [
+    "web",
+    "html",
+    "css",
+    "javascript",
+    "church",
+    "invitation"
+  ],
+  "author": "Cristian Bordon",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
