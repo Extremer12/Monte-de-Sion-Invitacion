@@ -451,7 +451,7 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #000814 0%, #001233 100%);
+  background: radial-gradient(circle at center, #001233 0%, #000814 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -487,6 +487,7 @@ h3 {
   align-items: center;
   gap: 30px;
   z-index: 1;
+  position: relative;
 }
 
 .loader-title {
@@ -496,44 +497,76 @@ h3 {
   text-align: center;
   display: flex;
   justify-content: center;
+  text-shadow: 0 0 10px var(--color-gold);
+  animation: titlePulse 2s ease-in-out infinite;
 }
 
 .loader-title .letter {
   opacity: 0;
   transform: translateY(-20px);
   animation: letterFall 0.5s ease forwards;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  text-shadow: 0 0 10px var(--color-gold), 0 0 20px var(--color-gold),
+    0 0 40px var(--color-gold);
+}
+
+.letter {
+  display: inline-block;
+  animation: letterFloat 3s ease-in-out infinite;
+  text-shadow: 0 0 10px var(--color-gold), 0 0 20px var(--color-gold),
+    0 0 40px var(--color-gold);
 }
 
 .logo-container {
-  position: relative;
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
+  position: relative;
   overflow: hidden;
   border: 3px solid var(--color-gold);
-  opacity: 0;
-  animation: logoReveal 2s ease forwards 1.5s;
+  box-shadow: 
+    0 0 30px var(--color-gold),
+    inset 0 0 20px var(--color-gold);
+  animation: logoFloat 4s ease-in-out infinite;
+  background: #000; /* Fondo negro por si la imagen tarda en cargar */
 }
 
 .logo-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: radial-gradient(
-    circle,
-    rgba(212, 175, 55, 0.3) 0%,
+    circle at center,
+    rgba(212, 175, 55, 0.3),
     transparent 70%
   );
-  animation: glowPulse 2s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .loader-logo {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
+  display: block; /* Elimina espacios extra */
+  position: relative; /* Para que esté por encima de los efectos */
+  z-index: 1; /* Asegura que la imagen esté visible */
+}
+
+.logo-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 3s ease-in-out infinite;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .spinner {
@@ -544,6 +577,212 @@ h3 {
   border-radius: 50%;
   opacity: 0;
   animation: spin 1s linear infinite, fadeIn 0.5s ease forwards 2s;
+}
+
+.divine-rays {
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent,
+    var(--color-gold),
+    transparent 20deg
+  );
+  animation: divineRotation 20s linear infinite;
+  opacity: 0.1;
+}
+
+.stars-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    2px 2px at calc(random() * 100%) calc(random() * 100%),
+    var(--color-gold),
+    transparent
+  );
+  background-size: 200px 200px;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  z-index: 1;
+}
+
+.grand-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title-line {
+  font-family: "Cinzel", serif;
+  font-size: 2.5rem;
+  color: var(--color-white);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: titleReveal 1s ease forwards;
+}
+
+.title-line.highlight {
+  font-size: 4rem;
+  color: var(--color-gold);
+  text-shadow: 
+    0 0 10px var(--color-gold),
+    0 0 20px var(--color-gold),
+    0 0 40px var(--color-gold);
+  animation: titleReveal 1s ease forwards 0.3s;
+}
+
+.logo-wrapper {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.logo-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--color-gold);
+  box-shadow: 
+    0 0 30px var(--color-gold),
+    inset 0 0 20px var(--color-gold);
+  animation: logoFloat 4s ease-in-out infinite;
+  background: #000; /* Fondo negro por si la imagen tarda en cargar */
+}
+
+.logo-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 3s ease-in-out infinite;
+}
+
+.pulse-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring {
+  position: absolute;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  animation: pulseRing 3s ease-out infinite;
+  opacity: 0;
+}
+
+.ring:nth-child(1) { width: 220px; height: 220px; animation-delay: 0s; }
+.ring:nth-child(2) { width: 240px; height: 240px; animation-delay: 0.5s; }
+.ring:nth-child(3) { width: 260px; height: 260px; animation-delay: 1s; }
+
+.loader-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.detail-text {
+  font-family: "Cinzel", serif;
+  color: var(--color-white);
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.detail-text:nth-child(1) { animation-delay: 1s; }
+.detail-text:nth-child(3) { animation-delay: 1.5s; }
+
+.decorative-line {
+  width: 100px;
+  height: 2px;
+  background: var(--color-gold);
+  position: relative;
+  transform: scaleX(0);
+  animation: lineGrow 1s ease forwards 1.2s;
+}
+
+@keyframes titleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shine {
+  0%, 100% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  50% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes lineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .title-line {
+    font-size: 2rem;
+  }
+  .title-line.highlight {
+    font-size: 3rem;
+  }
+  .logo-container {
+    width: 150px;
+    height: 150px;
+  }
+  .ring:nth-child(1) { width: 170px; height: 170px; }
+  .ring:nth-child(2) { width: 190px; height: 190px; }
+  .ring:nth-child(3) { width: 210px; height: 210px; }
 }
 
 @keyframes letterFall {
@@ -668,6 +907,45 @@ h3 {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    text-shadow: 0 0 10px var(--color-gold);
+  }
+  50% {
+    text-shadow: 0 0 30px var(--color-gold);
+  }
+}
+
+@keyframes letterFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes divineRotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

@@ -290,3 +290,35 @@ document.querySelectorAll('.pastor-item').forEach(card => {
         setTimeout(() => ripple.remove(), 1000);
     });
 });
+
+// Ajustar el tiempo del loader
+document.addEventListener('DOMContentLoaded', function() {
+    const loader = document.getElementById('loader');
+    
+    // Asegurarse de que el loader esté visible inicialmente
+    loader.style.opacity = '1';
+    loader.style.display = 'flex';
+
+    // Ocultar el loader después de la animación
+    setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+            loader.style.display = 'none';
+        }, 1000);
+    }, 4000); // Aumentado a 4 segundos para ver la animación completa
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const loaderLogo = document.querySelector('.loader-logo');
+    
+    loaderLogo.addEventListener('error', function() {
+        console.error('Error al cargar el logo');
+        // Mostrar un icono de respaldo si la imagen no carga
+        this.style.display = 'none';
+        this.parentElement.innerHTML += '<i class="fas fa-church" style="font-size: 5rem; color: var(--color-gold); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>';
+    });
+
+    loaderLogo.addEventListener('load', function() {
+        console.log('Logo cargado correctamente');
+    });
+});
