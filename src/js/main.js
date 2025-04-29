@@ -153,6 +153,23 @@ document.addEventListener("DOMContentLoaded", function () {
     letters.forEach((letter, index) => {
         letter.style.animationDelay = `${index * 0.1}s`;
     });
+  
+    // Configuración mejorada de AOS
+    AOS.init({
+        duration: 1000,
+        once: false, // Cambiado a false para que las animaciones se repitan
+        mirror: true, // Habilita las animaciones en ambas direcciones
+        offset: 120, // Ajusta cuándo comienza la animación
+        anchorPlacement: 'top-bottom', // Ancla la animación al entrar en viewport
+        easing: 'ease-out-back', // Agrega un efecto más suave
+    });
+
+    // Reiniciar AOS en cambios de scroll significativos
+    window.addEventListener('scroll', function() {
+        if (window.scrollY % 200 === 0) { // Cada 200px de scroll
+            AOS.refresh();
+        }
+    });
   });
   
   const eventDate = new Date("May 3, 2024 18:00:00").getTime();
@@ -232,4 +249,44 @@ document.addEventListener('DOMContentLoaded', function() {
         .addTo(map)
         .bindPopup('Monte de Sión<br>Miguel Ridao F. Norte 40')
         .openPopup();
+});
+
+// Efecto 3D para las tarjetas de pastores
+document.querySelectorAll('.pastor-item').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+
+document.querySelectorAll('.pastor-item').forEach(card => {
+    card.addEventListener('click', function(e) {
+        let ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        this.appendChild(ripple);
+        
+        let rect = this.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        setTimeout(() => ripple.remove(), 1000);
+    });
 });
