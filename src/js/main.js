@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const playPauseBtn = document.getElementById('playPauseBtn');
     const muteButton = document.getElementById('muteButton');
 
-    if (playPauseBtn && video) {
+    if (video && playPauseBtn && muteButton) {
+        // Configuración inicial
+        video.muted = true; // Iniciar muteado por autoplay policy
+        
+        // Play/Pause
         playPauseBtn.addEventListener('click', () => {
             if (video.paused) {
                 video.play();
@@ -74,22 +78,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
             }
         });
-    }
 
-    if (muteButton && video) {
+        // Mute/Unmute
         muteButton.addEventListener('click', () => {
             video.muted = !video.muted;
             muteButton.innerHTML = video.muted ? 
                 '<i class="fas fa-volume-mute"></i>' : 
                 '<i class="fas fa-volume-up"></i>';
         });
-    }
 
-    if (video) {
-        video.addEventListener('loadeddata', () => {
-            video.play().catch(() => {
-                console.log('Autoplay prevented');
-            });
+        // Actualizar botón de play cuando el video termina
+        video.addEventListener('ended', () => {
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+
+        // Intentar autoplay
+        video.play().catch(() => {
+            // Si falla el autoplay, mostrar el botón de play
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
         });
     }
 

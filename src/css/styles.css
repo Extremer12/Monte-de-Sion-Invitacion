@@ -184,23 +184,24 @@ h3 {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px 15px;
-  border-radius: 25px;
-  -webkit-backdrop-filter: blur(5px); /* Para Safari */
-  backdrop-filter: blur(5px); /* Para otros navegadores */
+  gap: 20px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-wrapper:hover .video-controls {
+  opacity: 1;
 }
 
 .control-btn {
-  background: none;
-  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--color-gold);
   color: var(--color-gold);
-  font-size: 1.5rem;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,12 +209,13 @@ h3 {
 }
 
 .control-btn:hover {
-  background: rgba(212, 175, 55, 0.2);
+  background: var(--color-gold);
+  color: var(--color-black);
   transform: scale(1.1);
 }
 
-.control-btn:active {
-  transform: scale(0.95);
+.control-btn i {
+  font-size: 1.2rem;
 }
 
 .history-card {
