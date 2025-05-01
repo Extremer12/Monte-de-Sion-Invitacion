@@ -1,15 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Loader
+    const loader = document.getElementById('loader');
+    document.body.classList.add('loading');
+
+    // Hide loader after everything is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            document.body.classList.remove('loading');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 400); // Reducir de 600ms a 400ms
+        }, 1000); // Reducir de 1500ms a 1000ms
+    });
+
     // Efecto de parallax en welcome
     const welcome = document.querySelector('.welcome');
     const welcomeContent = document.querySelector('.welcome-content');
     
-    welcome.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const x = (clientX / window.innerWidth - 0.5) * 20;
-        const y = (clientY / window.innerHeight - 0.5) * 20;
-        
-        welcomeContent.style.transform = `translate(${x}px, ${y}px)`;
-    });
+    // Prevenir errores de undefined
+    if (welcome && welcomeContent) {
+        // Hacer el efecto más suave
+        welcome.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const x = (clientX / window.innerWidth - 0.5) * 15; // Reducir de 20 a 15
+            const y = (clientY / window.innerHeight - 0.5) * 15;
+            welcomeContent.style.transform = `translate(${x}px, ${y}px)`;
+            welcomeContent.style.transition = 'transform 0.1s ease-out';
+        });
+    }
 
     // Scroll suave al hacer clic en el indicador
     const scrollIndicator = document.querySelector('.scroll-indicator');
@@ -35,7 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
         once: false,
         mirror: true,
         duration: 800,
-        offset: 50
+        offset: 100, // Aumentar offset para mejor timing
+        delay: 100, // Añadir pequeño delay
+        easing: 'ease-out-cubic' // Transición más suave
     });
 
     // 2. Control del video
@@ -64,6 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    if (video) {
+        video.addEventListener('loadeddata', () => {
+            video.play().catch(() => {
+                console.log('Autoplay prevented');
+            });
+        });
+    }
+
     // Mapa
     const mapElement = document.getElementById('mapa');
     if (mapElement) {
@@ -72,7 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const map = L.map('mapa', {
             zoomControl: true,
-            scrollWheelZoom: false
+            scrollWheelZoom: false,
+            maxZoom: 18,
+            minZoom: 12,
+            dragging: !L.Browser.mobile // Deshabilitar arrastre en móviles
         }).setView([lat, lng], 15);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -107,19 +139,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 5. Botón volver arriba
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', debounce(() => {
             if (window.scrollY > 300) {
                 scrollTopBtn.style.display = 'block';
                 scrollTopBtn.style.opacity = '1';
             } else {
                 scrollTopBtn.style.opacity = '0';
-                setTimeout(() => {
-                    if (window.scrollY <= 300) {
-                        scrollTopBtn.style.display = 'none';
-                    }
-                }, 400);
             }
-        });
+        }, 150));
 
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
@@ -181,3 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('touchend', () => isDragging = false);
     }
 });
+
+// Debouncing para eventos de scroll
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}

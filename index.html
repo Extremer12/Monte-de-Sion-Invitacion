@@ -6,7 +6,7 @@
     <meta name="description" content="Invitación a la inauguración del Nuevo Templo Monte de Sión.">
     <meta name="keywords" content="Monte de Sión, Inauguración, Templo, Iglesia, San Juan">
     <meta name="author" content="Cristian Bordon">
-    <meta name="theme-color" content="#001233" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#001233">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="src/images/logo-montedesion.jpg" type="image/png">
@@ -18,7 +18,29 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-logo-container">
+                <div class="loader-rings">
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                </div>
+                <div class="loader-logo">
+                    <img src="src/images/logo-montedesion.jpg" alt="Monte de Sión">
+                </div>
+            </div>
+            <div class="loader-text">
+                <h2>Monte de Sión</h2>
+                <p>Preparando tu experiencia...</p>
+            </div>
+            <div class="loader-progress">
+                <div class="divine-rays"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Welcome Section -->
     <section class="welcome">
         <div class="particles-golden"></div>
@@ -41,13 +63,14 @@
     <!-- Video Section with animation -->
     <section class="video-section">
         <div class="video-wrapper">
-            <video id="hero-video" playsinline preload="auto">
+            <video id="hero-video" preload="auto" controls>
                 <source src="src/images/welcome.mp4" type="video/mp4">
+                <source src="src/images/welcome.webm" type="video/webm">
                 Tu navegador no soporta el elemento de video.
             </video>
             <div class="video-controls">
-                <button id="playPauseBtn" class="control-btn" title="Reproducir/Pausar">
-                    <i class="fas fa-play"></i>
+                <button id="playPauseBtn" class="control-btn" title="Reproducir/Pausar" aria-label="Reproducir o pausar video">
+                    <i class="fas fa-play" aria-hidden="true"></i>
                 </button>
                 <button id="muteButton" class="control-btn" title="Silenciar/Activar sonido">
                     <i class="fas fa-volume-up"></i>
@@ -76,7 +99,7 @@
                 <div class="history-showcase" data-aos="zoom-in" data-aos-delay="300">
                     <div class="history-card">
                         <div class="history-image-wrapper">
-                            <img src="src/images/2023.jpg" alt="Nuestra Historia" class="history-image">
+                            <img src="src/images/2023.jpg" alt="Nuestra Historia" class="history-image" loading="lazy">
                             <div class="image-overlay">
                                 <div class="overlay-content">
                                     <i class="fas fa-mountain"></i>
@@ -311,7 +334,7 @@
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="./src/js/main.js"></script>
+    <script src="./src/js/main.js" defer></script>
 
 </body>
 </html>

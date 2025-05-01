@@ -255,9 +255,9 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.3s ease;
-  display: block; /* Cambiado de 'none' a 'block' */
-  opacity: 1; /* Asegurar que sea visible */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más suave */
+  display: block;
+  opacity: 1;
 }
 
 .transform-img.before {
@@ -268,6 +268,82 @@ h3 {
 .transform-img.after {
   clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
   z-index: 1;
+}
+
+.slider-handle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-gold);
+  transform: translateX(-50%);
+  cursor: ew-resize;
+  transition: left 0.2s ease-out; /* Movimiento más fluido */
+}
+
+.slider-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.slider-circle i {
+  font-size: 0.8rem;
+  color: var(--color-black);
+}
+
+.slider-circle i:first-child {
+  margin-right: 2px;
+}
+
+.comparison-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.label {
+  background: rgba(212, 175, 55, 0.9);
+  color: var(--color-black);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+
+.before-after-container:hover .label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .before-after-container {
+    height: 300px;
+    margin: 20px auto;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
 }
 
 .toggle-btn {
@@ -546,7 +622,8 @@ h3 {
   cursor: pointer;
   margin: 0.5rem 0;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Transición más elegante */
+  will-change: transform; /* Optimización de rendimiento */
 }
 
 .pastor-item:hover {
@@ -564,6 +641,9 @@ h3 {
   transform: scaleY(0);
   transform-origin: bottom;
   transition: transform 0.5s ease;
+}
+
+.pastor-item::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1025,7 +1105,7 @@ body.loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
   display: block; /* Cambiado de 'none' a 'block' */
   opacity: 1; /* Asegurar que sea visible */
 }
@@ -1049,6 +1129,7 @@ body.loading {
   background: var(--color-gold);
   transform: translateX(-50%);
   cursor: ew-resize;
+  transition: left 0.2s ease-out; 
 }
 
 .slider-circle {
@@ -1504,4 +1585,190 @@ body.loading {
     .history-text p {
         font-size: 1rem;
     }
+}
+
+/* Loader Styles */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease-out;
+}
+
+.loader-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.loader-logo-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.loader-rings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring {
+    position: absolute;
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    animation: ringPulse 2s ease-out infinite;
+    opacity: 0;
+}
+
+.ring:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    animation-delay: 0s;
+}
+
+.ring:nth-child(2) {
+    width: 80%;
+    height: 80%;
+    animation-delay: 0.3s;
+}
+
+.ring:nth-child(3) {
+    width: 60%;
+    height: 60%;
+    animation-delay: 0.6s;
+}
+
+.loader-logo {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    z-index: 2;
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.loader-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 3px solid var(--color-gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.loader-text {
+    color: var(--color-white);
+    animation: textPulse 2s ease-in-out infinite;
+}
+
+.loader-text h2 {
+    font-size: 2rem;
+    color: var(--color-gold);
+    margin-bottom: 0.5rem;
+}
+
+.loader-text p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.loader-progress {
+    position: relative;
+    width: 200px;
+    height: 2px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.divine-rays {
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--color-gold),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(300%);
+    }
+}
+
+/* Ajuste para móviles */
+@media (max-width: 768px) {
+    .loader-logo-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .loader-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .loader-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Hide scrollbar while loading */
+body.loading {
+    overflow: hidden;
 }
