@@ -1,192 +1,183 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Añadir clase loading al body
-    document.body.classList.add('loading');
+document.addEventListener('DOMContentLoaded', function() {
+    // Efecto de parallax en welcome
+    const welcome = document.querySelector('.welcome');
+    const welcomeContent = document.querySelector('.welcome-content');
+    
+    welcome.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const x = (clientX / window.innerWidth - 0.5) * 20;
+        const y = (clientY / window.innerHeight - 0.5) * 20;
+        
+        welcomeContent.style.transform = `translate(${x}px, ${y}px)`;
+    });
 
-    // Inicializar AOS inmediatamente
+    // Scroll suave al hacer clic en el indicador
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const nextSection = document.querySelector('.video-section');
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Efecto de partículas doradas interactivo
+    const particles = document.querySelector('.particles-golden');
+    welcome.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        particles.style.setProperty('--x', `${clientX}px`);
+        particles.style.setProperty('--y', `${clientY}px`);
+    });
+
+    // 1. Inicializar AOS para animaciones al scroll
     AOS.init({
         once: false,
         mirror: true,
-        easing: 'ease-in-out',
-        anchorPlacement: 'top-bottom',
         duration: 800,
+        offset: 50
     });
 
-    const loader = document.getElementById('loader');
+    // 2. Control del video
+    const video = document.getElementById('hero-video');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const muteButton = document.getElementById('muteButton');
 
-    // Reducir el tiempo del loader y asegurar que se oculte
-    setTimeout(() => {
-        if (loader) {
-            loader.style.opacity = '0';
-            loader.style.transition = 'opacity 0.6s ease';
-            
-            setTimeout(() => {
-                loader.style.display = 'none';
-                // Remover clase loading cuando termine
-                document.body.classList.remove('loading');
-            }, 600);
-        }
-    }, 3000); // Reducido a 3 segundos
+    if (playPauseBtn && video) {
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                video.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+    }
 
-    // BeforeAfter imágenes
-    new BeforeAfter({
-      id: '#example',
-      width: 400,
-      height: 300,
-      move_slider_on_hover: true,
-      click_to_move: true,
+    if (muteButton && video) {
+        muteButton.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteButton.innerHTML = video.muted ? 
+                '<i class="fas fa-volume-mute"></i>' : 
+                '<i class="fas fa-volume-up"></i>';
+        });
+    }
+
+    // Mapa
+    const mapElement = document.getElementById('mapa');
+    if (mapElement) {
+        const lat = -31.5329083;
+        const lng = -68.50687854937222;
+        
+        const map = L.map('mapa', {
+            zoomControl: true,
+            scrollWheelZoom: false
+        }).setView([lat, lng], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup("<b>Monte de Sión</b><br>¡Te esperamos!").openPopup();
+    }
+
+    // 4. Botones antes/después
+    const beforeAfterBtns = document.querySelectorAll('.toggle-btn');
+    const beforeImg = document.querySelector('.transform-img.before');
+    const afterImg = document.querySelector('.transform-img.after');
+
+    beforeAfterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const view = btn.getAttribute('data-view');
+            beforeAfterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (view === 'before') {
+                beforeImg.classList.add('active');
+                afterImg.classList.remove('active');
+            } else {
+                afterImg.classList.add('active');
+                beforeImg.classList.remove('active');
+            }
+        });
     });
-  
-    // Variables comunes
-    const video = document.getElementById('video-background');
-    const playPauseButton = document.getElementById('play-pause-button');
-    const muteButton = document.getElementById('mute-button');
-    const backToTopButton = document.getElementById('backToTop');
-    const fadeElements = document.querySelectorAll('.scroll-fade');
-    const animatedText = document.getElementById('animated-text');
-    const words = ['INAUGURACIÓN', 'MONTE DE SIÓN', '2024'];
-  
-    // Video - play/pause & mute/unmute
-    playPauseButton.addEventListener('click', () => {
-      video.paused ? video.play() : video.pause();
-      playPauseButton.textContent = video.paused ? '▶️' : '⏸️';
+
+    // 5. Botón volver arriba
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'block';
+                scrollTopBtn.style.opacity = '1';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                setTimeout(() => {
+                    if (window.scrollY <= 300) {
+                        scrollTopBtn.style.display = 'none';
+                    }
+                }, 400);
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // 6. Efectos en las tarjetas de pastores
+    const pastorItems = document.querySelectorAll('.pastor-item');
+    pastorItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-10px) rotateX(10deg) rotateY(10deg) scale(1.05)';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(0) rotateX(0) rotateY(0) scale(1)';
+        });
     });
-  
-    muteButton.addEventListener('click', () => {
-      video.muted = !video.muted;
-      muteButton.textContent = video.muted ? '🔇' : '🔊';
-    });
-  
-    // Video - autoplay al estar centrado
-    const isElementCentered = el => {
-      const rect = el.getBoundingClientRect();
-      const centerScreen = window.innerHeight / 2;
-      return Math.abs((rect.top + rect.height / 2) - centerScreen) < 150;
+
+    // Control deslizante de transformación
+    const beforeAfterContainer = document.querySelector('.before-after-container');
+    const sliderHandle = document.querySelector('.slider-handle');
+    const beforeImage = document.querySelector('.transform-img.before');
+    const afterImage = document.querySelector('.transform-img.after');
+
+    let isDragging = false;
+
+    const handleResize = (e) => {
+        if (!beforeAfterContainer) return;
+        
+        const rect = beforeAfterContainer.getBoundingClientRect();
+        let x = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        x = Math.max(rect.left, Math.min(x, rect.right));
+        
+        const percentage = ((x - rect.left) / rect.width) * 100;
+        
+        beforeImage.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+        afterImage.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+        sliderHandle.style.left = `${percentage}%`;
     };
-  
-    const handleVideoPlayback = () => {
-      isElementCentered(video) ? video.play() : video.pause();
-    };
-  
-    // Loader animado - letras máquina de escribir
-    const animateLoaderText = () => {
-      let wordIndex = 0, letterIndex = 0;
-      const typeLetter = () => {
-        if (wordIndex >= words.length) wordIndex = 0;
-        const currentWord = words[wordIndex];
-        if (letterIndex < currentWord.length) {
-          animatedText.textContent += currentWord.charAt(letterIndex++);
-          setTimeout(typeLetter, 100);
-        } else {
-          setTimeout(() => {
-            animatedText.textContent = '';
-            letterIndex = 0;
-            wordIndex++;
-            typeLetter();
-          }, 1500);
-        }
-      };
-      typeLetter();
-    };
-  
-    animateLoaderText();
-  
-    // Countdown
-    const countdown = document.getElementById('countdown');
-    const targetDate = new Date('2024-05-03T00:00:00').getTime();
-  
-    const updateCountdown = () => {
-      const now = Date.now();
-      const distance = targetDate - now;
-  
-      if (distance <= 0) {
-        countdown.textContent = '¡El evento ha comenzado!';
-        clearInterval(interval);
-        return;
-      }
-  
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
-  
-      countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    };
-  
-    const interval = setInterval(updateCountdown, 1000);
-    updateCountdown();
-  
-    // Botón "Volver arriba"
-    window.addEventListener('scroll', () => {
-      backToTopButton.style.opacity = window.scrollY > 200 ? '1' : '0';
-    });
-  
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  
-    // Fade In en scroll
-    const handleFadeElements = () => {
-      fadeElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if (rect.top < windowHeight - 100) {
-          el.classList.add('visible');
-        } else {
-          el.classList.remove('visible');
-        }
-      });
-    };
-  
-    window.addEventListener('scroll', () => {
-      handleVideoPlayback();
-      handleFadeElements();
-    });
-  
-    handleVideoPlayback();
-    handleFadeElements();
-  
-    // Mapa Leaflet optimizado
-    const map = L.map('map', { zoomControl: false }).setView([-32.48389345031723, -58.237107799999995], 16);
-  
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19,
-    }).addTo(map);
-  
-    L.marker([-32.48389345031723, -58.237107799999995])
-      .addTo(map)
-      .bindPopup('<b>Monte de Sión</b>')
-      .openPopup();
-  
-    // Cards con efecto 3D y Ripple
-    const cards = document.querySelectorAll('.pastores-container');
-  
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const { width, height, left, top } = card.getBoundingClientRect();
-        const x = (e.clientX - left) / width;
-        const y = (e.clientY - top) / height;
-  
-        const rotateX = (y - 0.5) * 20;
-        const rotateY = (x - 0.5) * -20;
-  
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        card.style.transition = 'transform 0.1s ease';
-      });
-  
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-        card.style.transition = 'transform 0.5s ease';
-      });
-  
-      card.addEventListener('click', (e) => {
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        ripple.style.left = `${e.clientX - card.getBoundingClientRect().left}px`;
-        ripple.style.top = `${e.clientY - card.getBoundingClientRect().top}px`;
-        card.appendChild(ripple);
-  
-        setTimeout(() => ripple.remove(), 600);
-      });
-    });
-  });
+
+    if (beforeAfterContainer && sliderHandle) {
+        beforeAfterContainer.addEventListener('mousedown', () => isDragging = true);
+        beforeAfterContainer.addEventListener('touchstart', () => isDragging = true);
+        
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            handleResize(e);
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            handleResize(e);
+        });
+        
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('touchend', () => isDragging = false);
+    }
+});

@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Invitación a la inauguración del Nuevo Templo Monte de Sión.">
     <meta name="keywords" content="Monte de Sión, Inauguración, Templo, Iglesia, San Juan">
     <meta name="author" content="Cristian Bordon">
-    <meta name="theme-color" content="#001233">
+    <meta name="theme-color" content="#001233" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="src/images/logo-montedesion.jpg" type="image/png">
@@ -19,49 +19,22 @@
 </head>
 <body>
     
-    <div id="loader">
-        <div class="divine-rays"></div>
-        <div class="stars-container"></div>
-        <div class="loader-content">
-            <div class="loader-title-container">
-                <h1 class="grand-title">
-                    <span class="title-line">LA GRAN</span>
-                    <span class="title-line highlight">INAUGURACIÓN</span>
-                </h1>
-            </div>
-            <div class="logo-wrapper">
-                <div class="logo-container">
-                    <div class="logo-shine"></div>
-                    <div class="logo-glow"></div>
-                    <img src="./src/images/logo-montedesion.jpg" alt="Monte de Sión" class="loader-logo">
-                </div>
-                <div class="pulse-rings">
-                    <div class="ring"></div>
-                    <div class="ring"></div>
-                    <div class="ring"></div>
-                </div>
-            </div>
-            <div class="loader-details">
-                <span class="detail-text">Un Nuevo Tiempo</span>
-                <div class="decorative-line"></div>
-            </div>
-        </div>
-    </div>
-    
-    
     <!-- Welcome Section -->
     <section class="welcome">
         <div class="particles-golden"></div>
         <div class="welcome-content">
             <h1 class="main-title" data-aos="fade-down">Monte de Sión</h1>
-            <div class="divine-separator" data-aos="fade-up" data-aos-delay="200">
+            <div class="divine-separator">
                 <span class="line"></span>
                 <i class="fas fa-dove"></i>
                 <span class="line"></span>
             </div>
-            <p class="welcome-subtitle" data-aos="fade-up" data-aos-delay="400">
+            <p class="welcome-subtitle">
                 Inauguración del Nuevo Templo
             </p>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -86,31 +59,35 @@
     <!-- Historia Section -->
     <section class="history">
         <div class="particles-golden"></div>
-        <div class="flying-doves"></div>
         <div class="container">
-            <div class="history-content" data-aos="fade-up">
-                <h2 class="section-title">Nuestro Inicio</h2>
-                <div class="divine-separator">
+            <div class="history-content">
+                <h2 class="section-title" data-aos="fade-down">
+                    <span class="highlight-text">Nuestro Inicio</span>
+                </h2>
+                <div class="divine-separator" data-aos="fade-up">
                     <span class="line"></span>
-                    <i class="fas fa-cross"></i>
+                    <i class="fas fa-church"></i>
                     <span class="line"></span>
                 </div>
-                <p class="section-subtitle">Un camino de fe y crecimiento</p>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    Un camino de fe y crecimiento
+                </p>
                 
-                <div class="history-card-wrapper" data-aos="zoom-in">
+                <div class="history-showcase" data-aos="zoom-in" data-aos-delay="300">
                     <div class="history-card">
-                        <div class="card-frame">
-                            <div class="frame-corner top-left"></div>
-                            <div class="frame-corner top-right"></div>
-                            <div class="frame-corner bottom-left"></div>
-                            <div class="frame-corner bottom-right"></div>
+                        <div class="history-image-wrapper">
                             <img src="src/images/2023.jpg" alt="Nuestra Historia" class="history-image">
-                        </div>
-                        <div class="card-overlay">
-                            <div class="overlay-content">
-                                <i class="fas fa-mountain overlay-icon"></i>
-                                <p class="overlay-text">Aquí comienza nuestra historia...</p>
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-mountain"></i>
+                                    <p>El comienzo de algo grande</p>
+                                </div>
                             </div>
+                        </div>
+                        <div class="history-text">
+                            <h3>Desde Nuestros Primeros Pasos</h3>
+                            <p>Con humildad y fe comenzamos este hermoso proyecto, 
+                               confiando en que Dios nos guiaría en cada paso del camino.</p>
                         </div>
                     </div>
                 </div>
@@ -126,33 +103,88 @@
                 <h2 class="section-title">Transformación del Templo</h2>
                 <div class="divine-separator">
                     <span class="line"></span>
-                    <i class="fas fa-mountain"></i>
+                    <i class="fas fa-church"></i>
                     <span class="line"></span>
                 </div>
+                <p class="section-subtitle">Desliza para ver el cambio</p>
             </div>
             
-            <div class="transformation-container">
-                <div class="before-after-toggle">
-                    <button class="toggle-btn active" data-view="before">Antes</button>
-                    <button class="toggle-btn" data-view="after">Después</button>
-                </div>
-                <div class="image-container">
+            <div class="transformation-container" data-aos="zoom-in">
+                <div class="before-after-container">
+                    <!-- Asegúrate de que las rutas sean correctas -->
                     <img src="src/images/Antes.jpg" alt="Antes" class="transform-img before active">
                     <img src="src/images/Despues.png" alt="Después" class="transform-img after">
+                    <div class="slider-handle">
+                        <div class="slider-circle">
+                            <i class="fas fa-chevron-left"></i>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="comparison-overlay">
+                        <div class="label before-label">Antes</div>
+                        <div class="label after-label">Después</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Reemplazar la sección event-info existente con esto -->
     <section class="event-info" id="gran-dia">
-        <div class="event-overlay">
-            <h2>✨¡El Gran Día Está Cerca!✨</h2>
-            <p class="event-subtitle">Estas invitado a ser parte, Te esperamos para la Inauguración del Templo.</p>
-            <div class="event-date-box">
-            <i class="fas fa-calendar-day"></i>
-            <span class="event-date"> Sábado 10 de Mayo – 18:00 hs</span>
-        </div>
-            <p class="event-location"><i class="fas fa-map-marker-alt"></i> Miguel Ridao F. Norte 40, Santa Lucia, San Juan</p>
+        <div class="stars-background"></div>
+        <div class="event-content">
+            <h2 class="event-title" data-aos="fade-down">
+                <span class="highlight-text">El Gran Día</span>
+                <span class="subtitle">está llegando</span>
+            </h2>
+            
+            <div class="event-cards-container">
+                <div class="event-card" data-aos="fade-right">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Fecha</h3>
+                        <div class="date-display">
+                            <span class="day">10</span>
+                            <div class="month-year">
+                                <span>Mayo</span>
+                                <span>2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-aos="fade-up">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Hora</h3>
+                        <div class="time-display">
+                            <span class="time">18:00</span>
+                            <span class="meridian">hs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-aos="fade-left">
+                    <div class="card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Lugar</h3>
+                        <div class="location-display">
+                            <p>Miguel Ridao F. Norte 40</p>
+                            <p>Santa Lucia, San Juan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-message" data-aos="fade-up">
+                <p>Sé parte de este momento histórico</p>
+            </div>
         </div>
     </section>
 
@@ -169,11 +201,14 @@
                 </div>
             </div>
 
-            <div class="map-container">
+            <div class="map-container" data-aos="zoom-in">
                 <div class="map-wrapper">
                     <div id="mapa"></div>
                 </div>
-                <a href="https://www.openstreetmap.org/directions?from=&to=-31.5329083%2C-68.50687854937222" class="directions-btn" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.openstreetmap.org/directions?from=&to=-31.5329083%2C-68.50687854937222" 
+                   class="directions-btn" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
                     <i class="fas fa-directions"></i>
                     Cómo llegar
                 </a>
@@ -245,7 +280,6 @@
             </div>
         </div>
     </section>
-
     
     <!-- Contact Section -->
     <footer class="main-footer">
@@ -276,7 +310,8 @@
     </button>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="src/js/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./src/js/main.js"></script>
 
 </body>
 </html>
